@@ -4,15 +4,18 @@ plugins {
 }
 
 android {
-    namespace = "com.leling.music"
+    namespace = "com.kugou.android"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.leling.music"
+        applicationId = "com.kugou.android"
         minSdk = 26
         targetSdk = 36
-        versionCode = 1
-        versionName = "1.0.0"
+        // ★ 必须 >= 20169：小布 AIChatMusicController.w(pkg) 仅在
+        //   versionCode >= 20169（KuGouHelper.b）时返回 "newkugoumusic"，
+        //   否则返回 null → 提示“该应用暂不支持此操作”
+        versionCode = 20169
+        versionName = "10.2.69"
     }
 
     buildTypes {
@@ -31,6 +34,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        aidl = true
     }
     lint {
         abortOnError = false

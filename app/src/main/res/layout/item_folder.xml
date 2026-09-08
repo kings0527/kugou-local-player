@@ -59,14 +59,4 @@
         android:textColor="?android:attr/textColorSecondary"
         android:textSize="13sp"
         tools:text="28 首" />
-
-    <ImageView
-        android:id="@+id/folderModeBadge"
-        android:layout_width="16dp"
-        android:layout_height="16dp"
-        android:layout_marginStart="8dp"
-        android:contentDescription="@string/whitelist_hint_off"
-        android:visibility="gone"
-        app:srcCompat="@drawable/ic_check"
-        app:tint="?attr/colorPrimary" />
 </LinearLayout>

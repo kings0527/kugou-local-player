@@ -30,13 +30,49 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            <!-- 语音助手："播放XX / 播放本地音乐" 直达本应用 -->
+            <!-- 标准“音乐应用”声明：系统/语音助手识别默认音乐应用的标准方式 -->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.APP_MUSIC" />
+            </intent-filter>
+            <!-- 旧式音乐播放器入口（部分助手/桌面依赖） -->
+            <intent-filter>
+                <action android:name="android.intent.action.MUSIC_PLAYER" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <!-- 语音助手（Breeno/Google）："播放音乐 / 随机播放 / 播放XX" -->
             <intent-filter>
                 <action android:name="android.media.action.MEDIA_PLAY_FROM_SEARCH" />
+                <action android:name="android.intent.action.MEDIA_PLAY_FROM_SEARCH" />
+                <action android:name="android.intent.action.SEARCH" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.media.action.MEDIA_PLAY_FROM_URI" />
+                <action android:name="android.intent.action.MEDIA_PLAY_FROM_URI" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <!-- 语音/文件管理器："用XX播放" 打开音频文件 -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="audio/*" />
+            </intent-filter>
+            <!-- ★ OPPO 小布(Breeno) 酷狗语音控制 deeplink：
+                 kugou://m.kugou.com/voicehelper?query=下一首&appid=3098&...
+                 query 取值：播放 / 暂停 / 下一首 / 上一首 / 收藏 / 随机播放 / 单曲循环 / 顺序播放
+                 或歌曲搜索词（“播放周杰伦”） -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:scheme="kugou"
+                    android:host="m.kugou.com"
+                    android:pathPrefix="/voicehelper" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VOICE_COMMAND" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -53,6 +89,33 @@
             android:foregroundServiceType="mediaPlayback">
             <intent-filter>
                 <action android:name="androidx.media3.session.MediaSessionService" />
+            </intent-filter>
+        </service>
+
+        <!-- 网易云音乐第三方控制 API：OPPO 小布(Breeno) 语音入口之一 -->
+        <service
+            android:name=".thirdapi.CMApiService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.netease.cloudmusic.third.api.CMApiService" />
+            </intent-filter>
+        </service>
+
+        <!-- 酷狗音乐第三方控制 API：小布语音播放的免 token 通路（主用） -->
+        <service
+            android:name=".thirdapi.KGMusicApiService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.kugou.android.third.api.KGMusicApiService" />
+            </intent-filter>
+        </service>
+
+        <!-- 酷狗音乐统一服务（新版）：小布 versionCode >= 20169 时使用 -->
+        <service
+            android:name=".thirdapi.KGMusicUnityService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.kugou.android.thirdmap.KGMusicUnityService" />
             </intent-filter>
         </service>
     </application>

@@ -1,33 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 白色双音符，整体向左倾斜 18°，居中放置于 adaptive 安全区 -->
+<!--
+  图标前景：单个八分音符 + 左右对称声波弧线。
+  几何经过对齐：符头中心 (46,72) 半径 11x8.5，符干从 (53.5,26) 到 (53.5,72)，
+  旗从符干顶部向右下弯曲。声波弧线以符头为圆心，半径 24 / 32。
+  全部位于 adaptive icon 安全区（中心 66dp 圆内）。
+-->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="108dp"
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
+
+    <!-- 声波弧线（左右对称，低透明度营造层次） -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.38"
+        android:pathData="M26,72 A20,20 0 0,1 26,52 L29.5,55.5 A15,15 0 0,0 29.5,68.5 Z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.38"
+        android:pathData="M82,72 A20,20 0 0,0 82,52 L78.5,55.5 A15,15 0 0,1 78.5,68.5 Z" />
+
+    <!-- 符干 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M51.5,26 h4.5 v46 h-4.5 z" />
+
+    <!-- 符旗（从符干顶部向右下弧线） -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M56,26 C66,32 72,42 70,56 C68,44 62,36 56,32 Z" />
+
+    <!-- 符头（略微倾斜的椭圆） -->
     <group
-        android:rotation="-16"
-        android:pivotX="61"
-        android:pivotY="60">
-        <!-- 左符干 -->
+        android:rotation="-20"
+        android:pivotX="46"
+        android:pivotY="72">
         <path
             android:fillColor="#FFFFFF"
-            android:pathData="M45.5,32 L51.5,32 L51.5,62 L45.5,62 Z" />
-        <!-- 右符干 -->
-        <path
-            android:fillColor="#FFFFFF"
-            android:pathData="M75.5,32 L81.5,32 L81.5,62 L75.5,62 Z" />
-        <!-- 横梁 -->
-        <path
-            android:fillColor="#FFFFFF"
-            android:pathData="M45.5,32 L81.5,32 L81.5,39 L45.5,39 Z" />
-        <!-- 左符头（椭圆） -->
-        <path
-            android:fillColor="#FFFFFF"
-            android:pathData="M35,66 a11,8.5 0 1,0 22,0 a11,8.5 0 1,0 -22,0 Z" />
-        <!-- 右符头（椭圆） -->
-        <path
-            android:fillColor="#FFFFFF"
-            android:pathData="M65,66 a11,8.5 0 1,0 22,0 a11,8.5 0 1,0 -22,0 Z" />
+            android:pathData="M35,72 a11,8.5 0 1,0 22,0 a11,8.5 0 1,0 -22,0 Z" />
     </group>
 </vector>

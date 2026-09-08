@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>乐聆 Launcher 图标预览</title>
+<style>
+  :root{
+    --bg:#F7F8FB; --card:#FFFFFF; --line:#E4E8F0; --text:#12182A; --muted:#6B7party;
+    --muted:#6B7385;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;padding:40px 32px 64px;background:var(--bg);color:var(--text);
+       font:14px/1.6 -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;}
+  h1{font-size:22px;font-weight:600;margin:0 0 6px}
+  h2{font-size:15px;font-weight:600;margin:36px 0 14px}
+  p.sub{margin:0 0 8px;color:#6B7385;font-size:13px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px}
+  .row{display:flex;flex-wrap:wrap;gap:28px;align-items:flex-end}
+  .cell{text-align:center}
+  .cell span{display:block;margin-top:8px;font-size:12px;color:#6B7385}
+  .mask{overflow:hidden;display:inline-block}
+  .m-circle{border-radius:50%}
+  .m-squircle{border-radius:22.5%}
+  .m-rounded{border-radius:16%}
+  .m-square{border-radius:4%}
+  .home{background:linear-gradient(160deg,#EEF2FA,#DDE5F3);border-radius:20px;padding:28px 32px;
+        display:flex;gap:28px;flex-wrap:wrap;justify-content:center}
+  .app{width:64px;text-align:center}
+  .app svg{display:block;margin:0 auto 6px}
+  .app em{font-style:normal;font-size:11px;color:#4A5364}
+  table{border-collapse:collapse;width:100%;font-size:13px}
+  td,th{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left}
+  th{font-weight:600;color:#4A5364}
+  code{background:#F0F3F9;padding:2px 6px;border-radius:5px;font-size:12px}
+  .sw{display:inline-block;width:15px;height:15px;border-radius:4px;vertical-align:-2px;margin-right:6px;border:1px solid rgba(0,0,0,.08)}
+</style>
+</head>
+<body>
+
+<h1>乐聆 · Launcher 图标</h1>
+<p class="sub">方案 A「唱片 · 声波」— 品牌蓝对角渐变背景 + 白色黑胶唱片与扩散声波。构图完全落在 adaptive 安全区内。</p>
+
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#7FB0FF"/>
+      <stop offset="0.45" stop-color="#2F6BFF"/>
+      <stop offset="1" stop-color="#060E26"/>
+    </linearGradient>
+    <linearGradient id="sheen" x1="0" y1="0" x2="0.5" y2="1">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.16"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+    <g id="mark">
+      <path d="M72.43,34.91 A31,31 0 0 1 72.43,73.09" fill="none" stroke="#FFFFFF"
+            stroke-opacity="0.5" stroke-width="4.5" stroke-linecap="round"/>
+      <path d="M68.09,38.3 A25.5,25.5 0 0 1 68.09,69.7" fill="none" stroke="#FFFFFF"
+            stroke-opacity="0.95" stroke-width="4.5" stroke-linecap="round"/>
+      <path fill="#FFFFFF" fill-rule="evenodd"
+            d="M27,54 a21,21 0 1,0 42,0 a21,21 0 1,0 -42,0 z
+               M31.5,54 a16.5,16.5 0 1,1 33,0 a16.5,16.5 0 1,1 -33,0 z
+               M34.5,54 a13.5,13.5 0 1,1 27,0 a13.5,13.5 0 1,1 -27,0 z
+               M43,54 a5,5 0 1,1 10,0 a5,5 0 1,1 -10,0 z"/>
+    </g>
+    <g id="mark-mono">
+      <path d="M72.43,34.91 A31,31 0 0 1 72.43,73.09" fill="none" stroke="currentColor"
+            stroke-width="5" stroke-linecap="round"/>
+      <path d="M68.09,38.3 A25.5,25.5 0 0 1 68.09,69.7" fill="none" stroke="currentColor"
+            stroke-width="5" stroke-linecap="round"/>
+      <path fill="currentColor" fill-rule="evenodd"
+            d="M27,54 a21,21 0 1,0 42,0 a21,21 0 1,0 -42,0 z
+               M43,54 a5.5,5.5 0 1,1 11,0 a5.5,5.5 0 1,1 -11,0 z"/>
+    </g>
+    <g id="icon">
+      <rect width="108" height="108" fill="url(#bg)"/>
+      <rect width="108" height="108" fill="url(#sheen)"/>
+      <use href="#mark"/>
+    </g>
+  </defs>
+</svg>
+
+<h2>桌面效果</h2>
+<div class="card home">
+  <div class="app">
+    <svg viewBox="0 0 108 108" width="58" height="58" class="mask m-squircle"><use href="#icon"/></svg>
+    <em>乐聆</em>
+  </div>
+  <div class="app">
+    <svg viewBox="0 0 108 108" width="58" height="58" class="mask m-circle"><use href="#icon"/></svg>
+    <em>圆形</em>
+  </div>
+  <div class="app">
+    <svg viewBox="0 0 108 108" width="58" height="58" class="mask m-rounded"><use href="#icon"/></svg>
+    <em>圆角方</em>
+  </div>
+  <div class="app">
+    <svg viewBox="0 0 108 108" width="58" height="58" class="mask m-square"><use href="#icon"/></svg>
+    <em>方形</em>
+  </div>
+  <div class="app" style="color:#2F6BFF">
+    <svg viewBox="0 0 108 108" width="58" height="58" class="mask m-squircle">
+      <rect width="108" height="108" fill="#E8EDF5"/><use href="#mark-mono"/></svg>
+    <em>主题图标</em>
+  </div>
+</div>
+
+<h2>不同尺寸可读性</h2>
+<div class="card">
+  <div class="row">
+    <div class="cell"><svg viewBox="0 0 108 108" width="144" height="144" class="mask m-squircle"><use href="#icon"/></svg><span>144 px</span></div>
+    <div class="cell"><svg viewBox="0 0 108 108" width="96" height="96" class="mask m-squircle"><use href="#icon"/></svg><span>96 px</span></div>
+    <div class="cell"><svg viewBox="0 0 108 108" width="72" height="72" class="mask m-squircle"><use href="#icon"/></svg><span>72 px</span></div>
+    <div class="cell"><svg viewBox="0 0 108 108" width="48" height="48" class="mask m-squircle"><use href="#icon"/></svg><span>48 px</span></div>
+    <div class="cell"><svg viewBox="0 0 108 108" width="36" height="36" class="mask m-squircle"><use href="#icon"/></svg><span>36 px</span></div>
+    <div class="cell"><svg viewBox="0 0 108 108" width="24" height="24" class="mask m-squircle"><use href="#icon"/></svg><span>24 px</span></div>
+  </div>
+</div>
+
+<h2>新旧对比</h2>
+<div class="card">
+  <div class="row">
+    <div class="cell">
+      <svg viewBox="0 0 108 108" width="96" height="96" class="mask m-squircle">
+        <defs><linearGradient id="oldbg" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#4D8DFF"/><stop offset="1" stop-color="#0A1E4A"/></linearGradient></defs>
+        <rect width="108" height="108" fill="url(#oldbg)"/>
+        <g fill="#FFFFFF">
+          <path d="M46,28h7v34h-7z"/><path d="M78,28h7v34h-7z"/><path d="M46,28h39v8H46z"/>
+          <path d="M34,66a13,10 0 1,0 26,0a13,10 0 1,0 -26,0z"/>
+          <path d="M66,66a13,10 0 1,0 26,0a13,10 0 1,0 -26,0z"/>
+        </g>
+      </svg>
+      <span>旧版</span>
+    </div>
+    <div class="cell"><svg viewBox="0 0 108 108" width="96" height="96" class="mask m-squircle"><use href="#icon"/></svg><span>新版</span></div>
+  </div>
+</div>
+
+<h2>规格</h2>
+<div class="card">
+  <table>
+    <tr><th>项</th><th>值</th></tr>
+    <tr><td>类型</td><td>Adaptive Icon（前景 / 背景 / 单色三层）</td></tr>
+    <tr><td>画布</td><td>108 × 108 dp，安全区半径 33 dp</td></tr>
+    <tr><td>构图包围盒</td><td>x [27, 81.25]、y [33, 75]，中心 (54, 54)</td></tr>
+    <tr><td>背景渐变</td><td><span class="sw" style="background:#7FB0FF"></span>#7FB0FF → <span class="sw" style="background:#2F6BFF"></span>#2F6BFF → <span class="sw" style="background:#060E26"></span>#060E26（135°）</td></tr>
+    <tr><td>涉及文件</td><td><code>drawable/ic_launcher_background.xml</code>、<code>drawable/ic_launcher_foreground.xml</code>、<code>drawable/ic_launcher_monochrome.xml</code>、<code>mipmap-anydpi-v26/ic_launcher{,_round}.xml</code></td></tr>
+  </table>
+</div>
+
+</body>
+</html>

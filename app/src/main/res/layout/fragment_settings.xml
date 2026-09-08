@@ -72,105 +72,81 @@
                     android:layout_height="wrap_content" />
             </LinearLayout>
 
-            <HorizontalScrollView
-                android:id="@+id/eqScroll"
+            <!-- 预设 chips：Flow 自动换行，不遮挡 -->
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/eqGroup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:scrollbars="none">
+                android:layout_marginTop="8dp"
+                app:selectionRequired="true"
+                app:singleSelection="true">
 
-                <com.google.android.material.button.MaterialButtonToggleGroup
-                    android:id="@+id/eqGroup"
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/eq0"
+                    style="@style/Widget.Material3.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:selectionRequired="true"
-                    app:singleSelection="true">
+                    android:text="标准" />
 
-                    <Button
-                        android:id="@+id/eq0"
-                        style="?attr/materialButtonOutlinedStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="4dp"
-                        android:text="标准"
-                        android:textSize="12sp" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/eq1"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="流行" />
 
-                    <Button
-                        android:id="@+id/eq1"
-                        style="?attr/materialButtonOutlinedStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="4dp"
-                        android:text="流行"
-                        android:textSize="12sp" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/eq2"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="摇滚" />
 
-                    <Button
-                        android:id="@+id/eq2"
-                        style="?attr/materialButtonOutlinedStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="4dp"
-                        android:text="摇滚"
-                        android:textSize="12sp" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/eq3"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="爵士" />
 
-                    <Button
-                        android:id="@+id/eq3"
-                        style="?attr/materialButtonOutlinedStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="4dp"
-                        android:text="爵士"
-                        android:textSize="12sp" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/eq4"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="古典" />
 
-                    <Button
-                        android:id="@+id/eq4"
-                        style="?attr/materialButtonOutlinedStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="4dp"
-                        android:text="古典"
-                        android:textSize="12sp" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/eq5"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="舞曲" />
 
-                    <Button
-                        android:id="@+id/eq5"
-                        style="?attr/materialButtonOutlinedStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="4dp"
-                        android:text="舞曲"
-                        android:textSize="12sp" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/eq6"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="电子" />
 
-                    <Button
-                        android:id="@+id/eq6"
-                        style="?attr/materialButtonOutlinedStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="4dp"
-                        android:text="电子"
-                        android:textSize="12sp" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/eq7"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="低音增强" />
 
-                    <Button
-                        android:id="@+id/eq7"
-                        style="?attr/materialButtonOutlinedStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="4dp"
-                        android:text="低音增强"
-                        android:textSize="12sp" />
-
-                    <Button
-                        android:id="@+id/eq8"
-                        style="?attr/materialButtonOutlinedStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="人声"
-                        android:textSize="12sp" />
-                </com.google.android.material.button.MaterialButtonToggleGroup>
-            </HorizontalScrollView>
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/eq8"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="人声" />
+            </com.google.android.material.chip.ChipGroup>
         </LinearLayout>
 
-        <!-- ================= 文件夹管理 ================= -->
+        <!-- ================= 忽略目录 ================= -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -178,47 +154,6 @@
             android:orientation="vertical"
             android:layout_margin="12dp"
             android:padding="16dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/settings_whitelist"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="15sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/settings_whitelist_hint"
-                android:textColor="?android:attr/textColorSecondary"
-                android:textSize="12sp" />
-
-            <com.google.android.material.switchmaterial.SwitchMaterial
-                android:id="@+id/whitelistSwitch"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <LinearLayout
-                android:id="@+id/whitelistList"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" />
-
-            <TextView
-                android:id="@+id/whitelistEmpty"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:padding="16dp"
-                android:text="@string/whitelist_empty"
-                android:textColor="?android:attr/textColorSecondary"
-                android:textSize="13sp" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginVertical="8dp"
-                android:background="?android:attr/listDivider" />
 
             <TextView
                 android:layout_width="wrap_content"

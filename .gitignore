@@ -8,3 +8,6 @@
 .externalNativeBuild
 .cxx
 /app/build
+/.kotlin
+/.pi-board
+TASK_STATE.md

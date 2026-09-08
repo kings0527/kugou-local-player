@@ -1,7 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="brand_dark">#171A2E</color>
-    <color name="brand_purple">#6C4DF6</color>
-    <color name="launcher_bg_start">#3A2A75</color>
-    <color name="launcher_bg_end">#14203F</color>
+    <!-- 品牌蓝（去 Material3 默认紫） -->
+    <color name="brand_primary">#2F6BFF</color>
+    <color name="brand_primary_container">#DBE7FF</color>
+    <color name="brand_on_primary_container">#0F2A66</color>
+
+    <!-- 亮色中性 -->
+    <color name="placeholder_bg">#E8EDF5</color>
+    <color name="placeholder_fg">#8A94A6</color>
+
+    <!-- 播放页深色背景（冷灰蓝，无紫） -->
+    <color name="player_bg">#0F131B</color>
+    <color name="player_disc">#14181F</color>
+    <color name="player_text">#FFFFFF</color>
+    <color name="player_text_dim">#8F9AAE</color>
+    <color name="player_icon_dim">#9AA6B8</color>
+
+    <!-- Launcher 渐变（与 drawable/ic_launcher_background.xml 保持一致） -->
+    <color name="launcher_bg_start">#7FB0FF</color>
+    <color name="launcher_bg_mid">#2F6BFF</color>
+    <color name="launcher_bg_end">#060E26</color>
 </resources>

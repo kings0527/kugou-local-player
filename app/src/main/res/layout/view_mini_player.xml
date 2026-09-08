@@ -4,25 +4,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?android:attr/colorBackground"
+    android:background="@drawable/bg_mini_player"
+    android:elevation="6dp"
     android:clickable="true"
     android:focusable="true"
+    android:layout_marginHorizontal="10dp"
+    android:layout_marginBottom="4dp"
     android:paddingHorizontal="12dp"
-    android:paddingVertical="6dp">
+    android:paddingVertical="8dp">
 
-    <TextView
-        android:id="@+id/mpArt"
+    <FrameLayout
+        android:id="@+id/mpArtWrap"
         android:layout_width="42dp"
         android:layout_height="42dp"
-        android:background="@drawable/bg_round_art"
-        android:gravity="center"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        android:textStyle="bold"
+        android:background="@drawable/bg_thumb"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:text="乐" />
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/mpArtImg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:visibility="gone"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.LeLing.Circle" />
+
+        <TextView
+            android:id="@+id/mpArt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:text="乐" />
+    </FrameLayout>
 
     <LinearLayout
         android:layout_width="0dp"
@@ -30,7 +47,7 @@
         android:layout_marginStart="12dp"
         android:layout_marginEnd="8dp"
         android:orientation="vertical"
-        app:layout_constraintStart_toEndOf="@id/mpArt"
+        app:layout_constraintStart_toEndOf="@id/mpArtWrap"
         app:layout_constraintEnd_toStartOf="@id/mpPlay"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent">
@@ -64,6 +81,7 @@
         android:contentDescription="@string/cd_play_pause"
         android:scaleType="centerInside"
         app:srcCompat="@drawable/ic_play"
+        app:tint="@color/brand_primary"
         app:layout_constraintEnd_toStartOf="@id/mpNext"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
@@ -76,6 +94,7 @@
         android:contentDescription="@string/cd_next"
         android:scaleType="centerInside"
         app:srcCompat="@drawable/ic_next"
+        app:tint="@color/brand_primary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />

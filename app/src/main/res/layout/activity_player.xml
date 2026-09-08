@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/brand_dark"
+    android:background="@color/player_bg"
     android:fitsSystemWindows="true">
 
     <LinearLayout
@@ -19,23 +19,49 @@
             android:layout_height="0dp"
             android:layout_weight="1" />
 
-        <!-- 封面 -->
+        <!-- 唱片：黑盘 + 圆形封面 + 中心孔，整体旋转 -->
         <FrameLayout
+            android:id="@+id/pvDiscWrap"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="3.2"
             android:gravity="center">
 
-            <TextView
-                android:id="@+id/pvArt"
+            <FrameLayout
+                android:id="@+id/pvDisc"
                 android:layout_width="250dp"
                 android:layout_height="250dp"
-                android:background="@drawable/bg_round_art"
-                android:gravity="center"
-                android:textColor="#FFFFFF"
-                android:textSize="96sp"
-                android:textStyle="bold"
-                tools:text="乐" />
+                android:layout_gravity="center"
+                android:background="@drawable/bg_circle">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/pvArt"
+                    android:layout_width="190dp"
+                    android:layout_height="190dp"
+                    android:layout_gravity="center"
+                    android:scaleType="centerCrop"
+                    android:visibility="gone"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearance.LeLing.Circle" />
+
+                <TextView
+                    android:id="@+id/pvArtLetter"
+                    android:layout_width="190dp"
+                    android:layout_height="190dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/bg_thumb"
+                    android:gravity="center"
+                    android:textColor="@color/placeholder_fg"
+                    android:textSize="72sp"
+                    android:textStyle="bold"
+                    tools:text="♪" />
+
+                <!-- 中心孔 -->
+                <View
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/bg_center_hole" />
+            </FrameLayout>
         </FrameLayout>
 
         <TextView
@@ -46,7 +72,7 @@
             android:gravity="center"
             android:maxLines="1"
             android:text="@string/player_placeholder_title"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/player_text"
             android:textSize="21sp"
             android:textStyle="bold" />
 
@@ -58,7 +84,7 @@
             android:gravity="center"
             android:maxLines="1"
             android:text="@string/player_placeholder_sub"
-            android:textColor="#B3FFFFFF"
+            android:textColor="@color/player_text_dim"
             android:textSize="15sp" />
 
         <Space
@@ -77,7 +103,7 @@
                 android:id="@+id/pvCur"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#99FFFFFF"
+                android:textColor="@color/player_text_dim"
                 android:textSize="12sp"
                 tools:text="1:23" />
 
@@ -88,14 +114,14 @@
                 android:layout_marginHorizontal="12dp"
                 android:layout_weight="1"
                 android:max="1000"
-                android:progressTint="#FFFFFF"
-                android:thumbTint="#FFFFFF" />
+                android:progressTint="@color/brand_primary"
+                android:thumbTint="@color/player_text" />
 
             <TextView
                 android:id="@+id/pvTotal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#99FFFFFF"
+                android:textColor="@color/player_text_dim"
                 android:textSize="12sp"
                 tools:text="4:29" />
         </LinearLayout>
@@ -120,7 +146,7 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/cd_shuffle"
                 app:srcCompat="@drawable/ic_shuffle"
-                app:tint="#B3FFFFFF" />
+                app:tint="@color/player_icon_dim" />
 
             <ImageButton
                 android:id="@+id/pvPrev"
@@ -130,7 +156,7 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/cd_prev"
                 app:srcCompat="@drawable/ic_prev"
-                app:tint="#FFFFFF" />
+                app:tint="@color/player_text" />
 
             <FrameLayout
                 android:layout_width="0dp"
@@ -145,8 +171,9 @@
                     android:background="@drawable/bg_play"
                     android:contentDescription="@string/cd_play_pause"
                     android:scaleType="centerInside"
+                    android:padding="20dp"
                     app:srcCompat="@drawable/ic_play"
-                    app:tint="@color/brand_dark" />
+                    app:tint="@android:color/white" />
             </FrameLayout>
 
             <ImageButton
@@ -157,7 +184,7 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/cd_next"
                 app:srcCompat="@drawable/ic_next"
-                app:tint="#FFFFFF" />
+                app:tint="@color/player_text" />
 
             <ImageButton
                 android:id="@+id/pvRepeat"
@@ -167,7 +194,7 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/cd_repeat"
                 app:srcCompat="@drawable/ic_repeat"
-                app:tint="#B3FFFFFF" />
+                app:tint="@color/player_icon_dim" />
         </LinearLayout>
 
         <Space
@@ -186,5 +213,5 @@
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="@string/close"
         app:srcCompat="@drawable/ic_arrow_back"
-        app:tint="#FFFFFF" />
+        app:tint="@color/player_text" />
 </FrameLayout>

@@ -7,15 +7,17 @@
     android:background="?android:attr/colorBackground"
     android:fitsSystemWindows="true">
 
+    <!-- 内容区：始终铺满到 bottomNav 上方（mini player 悬浮覆盖，不挤压列表 → 无布局跳变） -->
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentHost"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/miniPlayer"
+        app:layout_constraintBottom_toTopOf="@id/bottomNav"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <!-- 悬浮 mini 播放条：不占布局，出现时列表不重排 -->
     <include
         android:id="@+id/miniPlayer"
         layout="@layout/view_mini_player"
