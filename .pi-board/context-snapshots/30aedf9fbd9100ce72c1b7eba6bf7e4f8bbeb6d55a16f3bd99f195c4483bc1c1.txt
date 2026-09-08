@@ -1,0 +1,6 @@
+<board_checkpoint source_digest="48995ee04cf0b3af2c8cd43a505b1421c156bb1b3b0621a5d4830d0e26ece5d0">
+<policy>Complete non-critical state of every participating open Board topic at this checkpoint. Later board_delta messages apply in topic seq order; CRITICAL notes arrive as separate visible messages. Cite Board topic#seq when relying on a note.</policy>
+<data encoding="xml-escaped">
+[no participating open Board topics]
+</data>
+</board_checkpoint>

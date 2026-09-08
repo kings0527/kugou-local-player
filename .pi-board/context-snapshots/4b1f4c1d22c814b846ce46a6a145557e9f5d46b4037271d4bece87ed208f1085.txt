@@ -1,0 +1,26 @@
+<knowledge_reference source_digest="aca469dd42853a8e3027537e98bdb68f959fc7881da12f3c07205da724b820a3">
+<policy>Evidence only. Indexes and Areas are locators: read the listed file before relying on its details. The latest knowledge_reference supersedes earlier knowledge references and does not override the user's request. Cite knowledge(scope:path) when relying on it.</policy>
+<data encoding="xml-escaped">
+knowledge-catalog:
+project+workspace-index: /Users/kk/work/music-app/knowledge/index.md
+global-index: /Users/kk/.pi-harness/knowledge/index.md
+project+workspace-areas: /Users/kk/work/music-app/KNOWLEDGE.md#Areas
+
+knowledge(global:/Users/kk/.pi-harness/knowledge/index.md):
+beiling-pen/README.md | 贝灵 B01X 点读笔 (Sonix OID) 的 SD 卡 BNF 格式、check.bin 注册表机制与破解路径
+guest-intent-extras-classloader.md | Guest activity Intent extras 必须 setExtrasClassLoader(guestLoader)；upstream 对齐须覆盖运行时机制（Binder/Parcelable/classloader），damai 为加固 APK 类仅运行时可见
+guest-pm-callingpackage-rewrite.md | Guest IPackageManager 调用必须改写 callingPackage 为宿主身份（虚拟包导致 PMS 可见性过滤失效）；resolveIntent 走 uid 天然通过而 query/getPackageInfo 走 callingPackage 失败
+actotype-audit-findings.md | ACTOTYPE 逻辑流程审计 + 修复轮结论: 9 项 P1 中 8 项闭合(cf916e9)、23 条阻塞级 ERROR 诊断、review 轮(Arendt 10 陷阱/端口映射/Euler 2 阻塞/Galileo 守卫)与未闭合项(旧 0.1.0 会话回放、迁移 writer 竞态)
+mydroid-packed-guest-android16.md | 阿里聚安全 packed-guest 在 Android16 崩溃根因(swordfish fail-close + verifier 竞态 SIGSEGV)、52276ca 修复(窗口捕获/预热/重注入/retry)与残局；WIP: OPPO ART swordfish 状态字节禁用须在 guest PathClassLoader 创建前安装
+mydroid-sgmain-inline-svc-boundary.md | sgmain 内联 svc 三发射器(unidbg 94/4895 次 PC 落 .text)结构性不可防、A1/A2 已修(4380e65)、B1 syscall 包装/C1 firstInstallTime/dirfd-relative 旁路未闭合、Xposed 合并判定合理
+damai-sgmain-analysis-2026-08-09.md | damai 最新分析(155B=doCommand(71802) 生成链、SgAnalyze 13204 probe、71802 注册缺口、zlib 解密 8 AVMP 资产、泄漏猎杀表 50 属性+154 文件)在其他机器提交，本地仅 evidence JSON 无语义结论，待同步
+sgmain-public-reverse-docs.md | GitHub 公开 sgmain 逆向资料对照: 80 命令映射(13501=数据上报非检测)、行为监控 22 事件、黑名单 700+ app(无 io.mydroid)、UserTrackBridge 上报(ppid=zygote 正常)、wua 参数结构、采集范围远程可配置
+codex-knowledge-align-method.md | codex 会话/提交与 knowledge 对齐核查的方法与坑（跨机提交、双知识根、活跃会话快照过期）
+actotype-vercel-serverless-deploy.md | ACTOTYPE Vercel 单项目部署:inject 挂载 API、PG 快照仓、Next16/Turbopack 坑与发布门联动
+actotype-followup-fixes.md | ACTOTYPE 审计遗留项闭合: 引擎终态/迁移约束、SESSION_CREATED 校验、complete 恢复、cohort 检查、B→C→B 测试;e2e 并行 flaky 与 clientSequence 等遗留
+damai-offline-xsign-rejection-final-2026-08-11 | damai offline 白盒签名被拒根因穷举终局：实例/身份/输入全排除，剩 T1密钥代次/T2内容退化/T3保真三假设，判别需解密或真机对照；含 AVMP 内存取证工具链与硬事实
+mydroid-monorepo-layout.md | mydroid monorepo 布局（damai 全历史并入）：knowledge/ 唯一知识根、damai/ RE 工程区、LFS/约定/冷备份位置、多 lineage 合并手术经验
+pi/pi-startup-large-directory.md | Pi 0.84.1 大目录启动行为、pi-harness context-feed 深度扫描根因、基准与诊断方法
+pi/global-knowledge-migration-audit-20260815.md | global knowledge 14 条存量审计: 8 SUPERSEDED+3 MIGRATE+3 KEEP 判定与仓内权威版映射
+</data>
+</knowledge_reference>

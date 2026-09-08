@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.LeLing" parent="Theme.Material3.DayNight.NoActionBar" />
+    <style name="Theme.LeLing.Player" parent="Theme.LeLing">
+        <item name="android:windowBackground">@color/brand_dark</item>
+    </style>
+</resources>

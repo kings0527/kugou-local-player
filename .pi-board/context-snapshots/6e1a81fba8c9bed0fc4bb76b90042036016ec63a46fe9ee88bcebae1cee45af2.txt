@@ -1,0 +1,6 @@
+<board_catalog source_digest="e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855">
+<policy>Metadata-only discovery for every open project Board topic. Join a topic before receiving its automatic note-body feed; an explicit Board read is a one-shot inspection. Watch/defer are not participation. Agent-authored CRITICAL text remains inside joined topics.</policy>
+<data encoding="xml-escaped">
+[no open Board topics]
+</data>
+</board_catalog>
