@@ -2,10 +2,13 @@ package com.kugou.android
 
 import android.content.Context
 import android.content.Intent
+import android.media.AudioManager
+import android.media.AudioPlaybackConfiguration
 import android.media.audiofx.Equalizer
 import android.net.Uri
 import android.os.Handler
 import android.os.Looper
+import android.os.Process
 import android.util.Log
 import androidx.core.content.ContextCompat
 import androidx.media3.common.MediaItem
@@ -66,6 +69,7 @@ object PlayerHub {
         service = s
         p.addListener(playerListener)
         observeSettings()
+        registerFocusWatcher(s)
         pendingQueue?.let { (q, i, sh) ->
             pendingQueue = null
             playQueue(q, i, sh)
@@ -77,9 +81,79 @@ object PlayerHub {
         player?.removeListener(playerListener)
         settingsJob?.cancel()
         ticker.removeCallbacksAndMessages(null)
+        unregisterFocusWatcher()
         releaseEq()
         player = null
         service = null
+    }
+
+    /**
+     * 注册“其他应用停止播放后自动恢复”监听。
+     * Android 在别的应用释放音频焦点时不会回调我们（我们不是焦点持有者），
+     * 所以用 AudioManager 的播放活动回调来感知。
+     */
+    private fun registerFocusWatcher(ctx: Context) {
+        if (focusWatcher != null) return
+        val am = ctx.getSystemService(Context.AUDIO_SERVICE) as? AudioManager ?: return
+        val cb = object : AudioManager.AudioPlaybackCallback() {
+            override fun onPlaybackConfigChanged(configs: MutableList<AudioPlaybackConfiguration>) {
+                tryAutoResume()
+            }
+        }
+        am.registerAudioPlaybackCallback(cb, Handler(Looper.getMainLooper()))
+        focusWatcher = cb
+    }
+
+    /**
+     * 尝试自动恢复。仅在“非用户暂停”且当前无音乐播放时恢复。
+     */
+    private fun tryAutoResume() {
+        val p = player ?: return
+        if (userPaused || p.isPlaying || p.mediaItemCount == 0) return
+        if (p.playbackState == Player.STATE_IDLE) return
+        val am = AppCtx.app.getSystemService(Context.AUDIO_SERVICE) as? AudioManager ?: return
+        if (am.isMusicActive) return // 仍有其他音乐在放，不抢
+        Log.i("PlayerHub", "其他应用已停止，自动恢复播放")
+        p.play()
+    }
+
+    /** 被外部打断后定时重试恢复（部分场景如 force-stop 不触发 AudioPlaybackCallback） */
+    private var resumeRetries = 0
+    private val resumeRunnable = object : Runnable {
+        override fun run() {
+            if (userPaused || resumeRetries >= 10) {
+                resumeRetries = 0
+                return
+            }
+            val p = player
+            if (p != null && !p.isPlaying && p.mediaItemCount > 0 && p.playbackState != Player.STATE_IDLE) {
+                val am = AppCtx.app.getSystemService(Context.AUDIO_SERVICE) as? AudioManager
+                if (am != null && !am.isMusicActive) {
+                    Log.i("PlayerHub", "重试恢复播放（第 ${resumeRetries + 1} 次）")
+                    p.play()
+                    resumeRetries = 0
+                    return
+                }
+                resumeRetries++
+                ticker.postDelayed(this, 3000)
+            } else {
+                resumeRetries = 0
+            }
+        }
+    }
+
+    private fun scheduleAutoResumeRetry() {
+        if (userPaused) return
+        resumeRetries = 0
+        ticker.removeCallbacks(resumeRunnable)
+        ticker.postDelayed(resumeRunnable, 2500)
+    }
+
+    private fun unregisterFocusWatcher() {
+        val cb = focusWatcher ?: return
+        val am = AppCtx.app.getSystemService(Context.AUDIO_SERVICE) as? AudioManager
+        runCatching { am?.unregisterAudioPlaybackCallback(cb) }
+        focusWatcher = null
     }
 
     /** 服务创建后立即把持久化设置应用到播放器（循环/随机/EQ） */
@@ -106,6 +180,14 @@ object PlayerHub {
     private var failStreak = 0
     private const val MAX_FAIL_SKIP = 8
 
+    /**
+     * 用户主动暂停标记。
+     * 音频焦点丢失（来电/其他 app 播放）导致的暂停不置位，
+     * 这样其他 app 停止后可以自动恢复；用户手动暂停则不自动恢复。
+     */
+    private var userPaused = false
+    private var focusWatcher: AudioManager.AudioPlaybackCallback? = null
+
     private val serviceConnection = object : android.content.ServiceConnection {
         override fun onServiceConnected(name: android.content.ComponentName?, binder: android.os.IBinder?) {}
         override fun onServiceDisconnected(name: android.content.ComponentName?) {
@@ -125,6 +207,8 @@ object PlayerHub {
             if (isPlaying) startTicker() else stopTicker()
             refreshEqIfNeeded()
             notifyCMApi()
+            // 被外部（来电/其他 app）打断而暂停时，安排重试恢复
+            if (!isPlaying) scheduleAutoResumeRetry()
         }
         override fun onPlaybackStateChanged(playbackState: Int) {
             if (playbackState == Player.STATE_ENDED) {
@@ -246,6 +330,7 @@ object PlayerHub {
 
     fun playQueue(songs: List<Song>, index: Int = 0, shuffle: Boolean = false, ctx: Context = AppCtx.app) {
         if (songs.isEmpty()) return
+        userPaused = false
         ensureService(ctx)
         val p = player
         if (p == null) {
@@ -271,7 +356,13 @@ object PlayerHub {
     fun toggle() {
         val p = player ?: return
         if (p.playbackState == Player.STATE_ENDED) p.seekTo(0)
-        if (p.isPlaying) p.pause() else p.play()
+        if (p.isPlaying) {
+            userPaused = true // 用户主动暂停 → 不自动恢复
+            p.pause()
+        } else {
+            userPaused = false
+            p.play()
+        }
     }
 
     fun next() {
@@ -470,6 +561,7 @@ object PlayerHub {
 
     private fun voicePlayInternal(ctx: Context) {
         val p = player
+        userPaused = false
         if (p != null && p.mediaItemCount > 0) {
             if (!p.isPlaying) p.play()
             notifyCMApi()
@@ -493,6 +585,7 @@ object PlayerHub {
     /** 语音“暂停/停止” */
     fun voicePause() {
         onMain {
+            userPaused = true // 用户语音暂停 → 不自动恢复
             player?.pause()
             notifyCMApi()
         }
