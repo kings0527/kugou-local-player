@@ -143,7 +143,11 @@ object PlayerHub {
     }
 
     private fun scheduleAutoResumeRetry() {
-        if (userPaused) return
+        if (userPaused) {
+            ticker.removeCallbacks(resumeRunnable)
+            resumeRetries = 0
+            return
+        }
         resumeRetries = 0
         ticker.removeCallbacks(resumeRunnable)
         ticker.postDelayed(resumeRunnable, 2500)
@@ -358,6 +362,8 @@ object PlayerHub {
         if (p.playbackState == Player.STATE_ENDED) p.seekTo(0)
         if (p.isPlaying) {
             userPaused = true // 用户主动暂停 → 不自动恢复
+            ticker.removeCallbacks(resumeRunnable)
+            resumeRetries = 0
             p.pause()
         } else {
             userPaused = false
@@ -584,9 +590,14 @@ object PlayerHub {
 
     /** 语音“暂停/停止” */
     fun voicePause() {
+        Log.i("PlayerHub", "voicePause called thread=${Thread.currentThread().name}")
         onMain {
             userPaused = true // 用户语音暂停 → 不自动恢复
-            player?.pause()
+            ticker.removeCallbacks(resumeRunnable)
+            resumeRetries = 0
+            val p = player
+            Log.i("PlayerHub", "voicePause exec: player=${p != null} playing=${p?.isPlaying}")
+            p?.pause()
             notifyCMApi()
         }
     }

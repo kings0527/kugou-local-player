@@ -203,8 +203,10 @@ class KGMusicUnityService : Service() {
                 val topQuery = params?.getString("query")
                 val json = runCatching { JSONObject(slots ?: "{}") }.getOrDefault(JSONObject())
                 val intent = json.optString("intent")
-                val query = topQuery?.takeIf { it.isNotBlank() }
-                    ?: json.optString("query").takeIf { it.isNotBlank() }
+                // 注意：Android org.json 的 optString 对 JSON null 返回字符串 "null"，必须过滤
+                fun clean(v: String?): String? =
+                    v?.trim()?.takeIf { it.isNotEmpty() && it != "null" && it != "NULL" }
+                val query = clean(topQuery) ?: clean(json.optString("query"))
                 // 解析结构化 slots（singer / song）
                 var singer: String? = null
                 var song: String? = null
@@ -213,8 +215,8 @@ class KGMusicUnityService : Service() {
                     for (i in 0 until slotsArr.length()) {
                         val slot = slotsArr.optJSONObject(i) ?: continue
                         val name = slot.optString("name")
-                        val text = slot.optJSONArray("values")?.optJSONObject(0)?.optString("text")
-                            ?.takeIf { it.isNotBlank() } ?: continue
+                        val text = clean(slot.optJSONArray("values")?.optJSONObject(0)?.optString("text"))
+                            ?: continue
                         when {
                             name.contains("singer") || name.contains("artist") -> singer = text
                             name.contains("song") || name.contains("title") -> song = text
@@ -229,7 +231,10 @@ class KGMusicUnityService : Service() {
                     hasSearch -> PlayerHub.voiceSearchAndPlay(query ?: "", singer, song)
                     intent.contains("next") -> onMain { PlayerHub.next() }
                     intent.contains("prev") -> onMain { PlayerHub.previous() }
-                    intent.contains("pause") || intent.contains("stop") -> PlayerHub.voicePause()
+                    intent.contains("pause") || intent.contains("stop") -> {
+                        Log.i(TAG, "→ voicePause")
+                        PlayerHub.voicePause()
+                    }
                     intent.contains("mode") -> {
                         val mode = json.optJSONObject("args")?.optInt("playMode", 0) ?: 0
                         PlayerHub.voiceSetPlayMode(mode)

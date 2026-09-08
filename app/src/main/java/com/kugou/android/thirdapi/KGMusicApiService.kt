@@ -159,9 +159,11 @@ class KGMusicApiService : Service() {
         "kgSemanticSlots" -> {
             val slots = params?.getString("semanticslots")
             val intent = runCatching { JSONObject(slots ?: "{}").optString("intent") }.getOrDefault("")
-            val query = params?.getString("query") ?: runCatching {
+            val rawQuery = params?.getString("query") ?: runCatching {
                 JSONObject(slots ?: "{}").optString("query")
             }.getOrDefault("")
+            // Android org.json 对 JSON null 返回 "null" 字符串，需过滤
+            val query = rawQuery.takeIf { it.isNotBlank() && it != "null" } ?: ""
             Log.i(TAG, "kgSemanticSlots intent=$intent query=$query")
             when {
                 intent.contains("next") -> onMain { PlayerHub.next() }
