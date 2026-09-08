@@ -1,6 +1,14 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+}
+
+// 从 keystore.properties 读取签名配置（该文件不入库）
+val keystoreProps = Properties().apply {
+    val f = rootProject.file("keystore.properties")
+    if (f.exists()) f.inputStream().use { load(it) }
 }
 
 android {
@@ -14,8 +22,20 @@ android {
         // ★ 必须 >= 20169：小布 AIChatMusicController.w(pkg) 仅在
         //   versionCode >= 20169（KuGouHelper.b）时返回 "newkugoumusic"，
         //   否则返回 null → 提示“该应用暂不支持此操作”
+        //   注意：后续版本只能在此基础上递增，不可降低
         versionCode = 20169
         versionName = "10.2.69"
+    }
+
+    signingConfigs {
+        create("release") {
+            if (keystoreProps.isNotEmpty()) {
+                storeFile = rootProject.file(keystoreProps.getProperty("storeFile"))
+                storePassword = keystoreProps.getProperty("storePassword")
+                keyAlias = keystoreProps.getProperty("keyAlias")
+                keyPassword = keystoreProps.getProperty("keyPassword")
+            }
+        }
     }
 
     buildTypes {
@@ -23,6 +43,10 @@ android {
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            signingConfig = if (keystoreProps.isNotEmpty()) signingConfigs.getByName("release") else null
+        }
+        debug {
+            applicationIdSuffix = ""
         }
     }
     compileOptions {

@@ -11,3 +11,7 @@
 /.kotlin
 /.pi-board
 TASK_STATE.md
+/keystore
+/keystore.properties
+*.keystore
+*.jks
